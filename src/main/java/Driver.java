@@ -4,7 +4,7 @@ import service.VehicleRentalService;
 import java.io.*;
 import java.util.*;
 
-public class Geektrust {
+public class Driver {
 
     public static void main(String[] args) throws IOException {
 
