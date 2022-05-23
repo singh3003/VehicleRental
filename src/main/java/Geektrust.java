@@ -8,11 +8,10 @@ public class Geektrust {
 
     public static void main(String[] args) throws IOException {
 
-        String filePath = args[0];
-        File file = new File(filePath);
+        File file = new File("/Users/klbairwa/Desktop/RentalInput.txt");
         Scanner scanner = new Scanner(file);
 
-//        BufferedWriter f_writer = new BufferedWriter(new FileWriter("/Users/klbairwa/Desktop/RentalOutput.txt"));
+        BufferedWriter f_writer = new BufferedWriter(new FileWriter("/Users/klbairwa/Desktop/RentalOutput.txt"));
         VehicleRentalService vehicleRentalService = new VehicleRentalService();
 
         while (scanner.hasNext()) {
@@ -22,24 +21,22 @@ public class Geektrust {
                 case "ADD_BRANCH":
                     List<String> vehicleList = new ArrayList<>();
                     Collections.addAll(vehicleList, arr[2].split(","));
-                    System.out.println(vehicleRentalService.onboardBranch(arr[1].trim(), vehicleList));
-//                    f_writer.write(String.valueOf( vehicleRentalService.onboardBranch(arr[1].trim(), vehicleList)));
-//                    f_writer.write("\r\n");
+                    f_writer.write(String.valueOf( vehicleRentalService.onboardBranch(arr[1].trim(), vehicleList)));
+                    f_writer.write("\r\n");
                     break;
                 case "ADD_VEHICLE":
-                    System.out.println(vehicleRentalService.onboardVehicle(arr[1].trim(), arr[2].trim(), Double.valueOf(arr[4].trim()), arr[3].trim()));
-//                    f_writer.write(String.valueOf(vehicleRentalService.onboardVehicle(arr[1].trim(), arr[2].trim(), Double.valueOf(arr[4].trim()), arr[3].trim())));
-//                    f_writer.write("\r\n");
+                    f_writer.write(String.valueOf(vehicleRentalService.onboardVehicle(arr[1].trim(), arr[2].trim(), Double.valueOf(arr[4].trim()), arr[3].trim())));
+                    f_writer.write("\r\n");
                     break;
                 case "BOOK":
-                    System.out.println(vehicleRentalService.bookVehicle(arr[1].trim(), arr[2].trim(), Long.parseLong(arr[3].trim()), Long.parseLong(arr[4].trim()), new LowestPriceRentalStrategy()));
-//                    f_writer.write(String.valueOf(vehicleRentalService.bookVehicle(arr[1].trim(), arr[2].trim(), Long.parseLong(arr[3].trim()), Long.parseLong(arr[4].trim()), new LowestPriceRentalStrategy())));
-//                    f_writer.write("\r\n");
+                    f_writer.write(String.valueOf(vehicleRentalService.bookVehicle(arr[1].trim(), arr[2].trim(), Long.parseLong(arr[3].trim()), Long.parseLong(arr[4].trim()), new LowestPriceRentalStrategy())));
+                    f_writer.write("\r\n");
                     break;
                 case "DISPLAY_VEHICLES":
                     Map<Double, String> vehicles = vehicleRentalService.displayVehicles();
                     for (Map.Entry<Double, String> entry : vehicles.entrySet()) {
-                       System.out.println(entry.getValue());
+                        f_writer.write(entry.getValue());
+                        f_writer.write("\r\n");
                     }
                     break;
                 default:
@@ -47,6 +44,7 @@ public class Geektrust {
             }
 
         }
+        f_writer.close();
     }
 
 }
